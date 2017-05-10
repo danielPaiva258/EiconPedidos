@@ -73,7 +73,7 @@ http://localhost:8080/EiconPedidos/faces/listaPedido.xhtml
 
 *******************************SCRIPT DE CRIAÇÂO DAS TABELAS**********************.
 
-create database pedidos;
+CREATE DATABASE  IF NOT EXISTS pedidos;
 use pedidos;
 
 create  table Cliente (
