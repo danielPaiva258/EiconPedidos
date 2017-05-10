@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head />
+<h:body>
+	<center>
+		<h1>Lista de Pedidos</h1>
+	</center>
+<p:tooltip />
+ <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+	<h:form id="formFiltro">
+		<p:fieldset legend="Filtro">
+			<h:panelGrid columns="2">
+				<p:outputLabel for="numPedidoFiltro" value="Número do Pedido:" />
+				<p:inputText id="numPedidoFiltro" style="width:200;"
+					value="#{pedidoBean.numPedidoFiltro}" converterMessage="Por favor digite apenas números..">
+					<f:validateRegex pattern="9?9999999999*"></f:validateRegex>
+				</p:inputText>
+
+				<p:outputLabel for="dataCadastro" value="Data de Cadastro" />
+				<p:calendar pattern="dd/MM/yyyy" id="dataCadastro" style="width:200"
+					value="#{pedidoBean.dataCadastroFiltro}" />
+
+				<p:outputLabel for="clienteFiltro" value="Selecione o Cliente:" />
+				<p:selectOneMenu id="clienteFiltro" required="false"
+					value="#{pedidoBean.clienteFiltroId}" style="width:192px">
+					<f:selectItem itemLabel="" itemValue="#{null}"/>
+					<f:selectItems value="#{pedidoBean.listaClientes}" var="cliente"
+						itemValue="#{cliente.codigoCliente}"
+						itemLabel="#{cliente.codigoCliente} - #{cliente.nome}" />
+					<p:ajax process="@this" update="@this" />
+				</p:selectOneMenu>
+				<p:commandButton process="@form" update="dtForm:dtListaPedidos"
+					id="buttonFiltro" value="Filtrar" label="Filtrar"
+					action="#{pedidoBean.filtrar}" ajax="false">
+				</p:commandButton>
+			</h:panelGrid>
+		</p:fieldset>
+	</h:form>
+	<h:form id="dtForm">
+		<p:spacer />
+		<p:dataTable id="dtListaPedidos" value="#{pedidoBean.listaPedidos}"
+			rows="8" paginator="true"  var="pedido" emptyMessage="Nenhum registro encontrado."
+			sortBy="#{pedido.cliente.nome}" paginatorPosition="bottom">
+			<p:column headerText="Nome">
+				<h:outputText value="#{pedido.cliente.nome}" />
+			</p:column>
+
+			<p:column headerText="Data de Cadastro" style="text-align:center;"
+				>
+				<h:outputText value="#{pedido.dataCadastro}" >
+					<f:convertDateTime pattern="dd-MM-yyyy" />
+				</h:outputText>
+			</p:column>
+
+			<p:column headerText="Numero de Controle" style="text-align:center;"
+				>
+				<h:outputText value="#{pedido.numeroControle}" />
+			</p:column>
+
+			<p:column headerText="Codigo do Cliente" style="text-align:center;">
+				<h:outputText value="#{pedido.cliente.codigoCliente}" />
+			</p:column>
+
+			<p:column headerText="Valor" style="text-align:center;">
+				<h:outputText value="#{pedido.valor}" />
+			</p:column>
+
+			<p:column headerText="Quantidade" style="text-align:center;">
+				<h:outputText value="#{pedido.quantidade}" />
+			</p:column>
+
+			<p:column headerText="Valor Total" style="text-align:center;">
+				<h:outputText value="R$ #{pedido.valorTotal}" />
+			</p:column>
+		</p:dataTable>
+ 	<center>
+ 		<p:outputLabel value="Escreva abaixo o Json para chamar o Service e salva-lo:"></p:outputLabel>
+		<h:panelGrid columns="1" style="text-align:center;">
+				<p:inputTextarea id="json" value="#{pedidoBean.jsonPostPedidos}"
+					autoResize="false" title="sddd2d" style="width:1000px; height :300px;" />
+				<p:commandButton process="json" update="@form" id="buttonFiltro" 
+					value="Salvar" label="Salvar" action="#{pedidoBean.salvarPedidos}"
+					ajax="false">
+				</p:commandButton>
+		</h:panelGrid>
+		</center>
+	</h:form>
+</h:body>
+</html>
