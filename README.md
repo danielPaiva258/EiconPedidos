@@ -71,7 +71,8 @@ A url da interface é:
 http://localhost:8080/EiconPedidos/faces/listaPedido.xhtml
 
 
-*******************************SCRIPT DE CRIAÇÂO DAS TABELAS**********************
+*******************************SCRIPT DE CRIAÇÂO DAS TABELAS**********************.
+
 create database pedidos;
 use pedidos;
 
@@ -109,5 +110,5 @@ insert into Cliente (nome, codigoCliente) values ('Rafael', 8);
 insert into Cliente (nome, codigoCliente) values ('Ricardo', 9);
 insert into Cliente (nome, codigoCliente) values ('Nadia', 10);
 
-***************************************************************************
+***************************************************************************.
 
