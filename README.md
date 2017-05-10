@@ -1,5 +1,5 @@
 
-<h1>Como configurar<h1>
+<h1>Como configurar</h1>
 
 1 - Baixe o projeto no GIthub
 
